@@ -55,9 +55,9 @@ function carregarDados(dados) {
   });
 }
 addEventListener("load", () => {
-  if (sessionStorage.getItem("dados") == null)
-    sessionStorage.setItem("dados", JSON.stringify({ ...dadosBase }));
-  const dados = JSON.parse(sessionStorage.getItem("dados"));
+  if (localStorage.getItem("dados") == null)
+    localStorage.setItem("dados", JSON.stringify({ ...dadosBase }));
+  const dados = JSON.parse(localStorage.getItem("dados"));
   carregarDados(dados);
 });
 // --Carrega os Dados do jogo--
@@ -65,11 +65,11 @@ addEventListener("load", () => {
 // --Parte clicker do jogo--
 const pastelzao = document.querySelector(".pastelzao");
 pastelzao.addEventListener("click", () => {
-  const dados = JSON.parse(sessionStorage.getItem("dados"));
+  const dados = JSON.parse(localStorage.getItem("dados"));
   const contPastel = document.getElementById("contPastel");
   dados.contPastel += 1;
   contPastel.innerText = dados.contPastel;
-  sessionStorage.setItem("dados", JSON.stringify(dados));
+  localStorage.setItem("dados", JSON.stringify(dados));
 });
 // --Parte clicker do jogo--
 
@@ -79,15 +79,19 @@ pastelzao.addEventListener("click", () => {
 
 // --Extras--
 function mudarNome(antigoNome) {
-  const dados = JSON.parse(sessionStorage.getItem("dados"));
+  const dados = JSON.parse(localStorage.getItem("dados"));
   const nome = document.getElementById("nome");
   const novoNome = prompt(
     "Digite um novo nome para Sua pastelaria",
     antigoNome
   );
-  nome.innerText = novoNome;
-  document.title = "Pastelaria " + novoNome;
-  dados.nomeDaPastelaria = novoNome;
-  sessionStorage.setItem("dados", JSON.stringify(dados));
+  if (novoNome) {
+    nome.innerText = novoNome;
+    nome.setAttribute("onClick", `mudarNome("${novoNome}")`);
+
+    document.title = "Pastelaria " + novoNome;
+    dados.nomeDaPastelaria = novoNome;
+    localStorage.setItem("dados", JSON.stringify(dados));
+  }
 }
 // --Extras--
