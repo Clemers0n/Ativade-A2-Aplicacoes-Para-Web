@@ -3,7 +3,7 @@ const dadosBase = {
   contPastel: 0,
   upgrades: [
     {
-      id: 1,
+      id: 0,
       nome: "Upgrade 1",
       descricao: "Upgrade 1",
       multiplicador: 2,
@@ -11,7 +11,7 @@ const dadosBase = {
       obteu: false,
     },
     {
-      id: 2,
+      id: 1,
       nome: "Upgrade 2",
       descricao: "Upgrade 2",
       multiplicador: 2,
@@ -19,7 +19,7 @@ const dadosBase = {
       obteu: false,
     },
     {
-      id: 3,
+      id: 2,
       nome: "Upgrade 3",
       descricao: "Upgrade 3",
       multiplicador: 2,
@@ -27,7 +27,7 @@ const dadosBase = {
       obteu: false,
     },
     {
-      id: 4,
+      id: 3,
       nome: "Upgrade 4",
       descricao: "Upgrade 4",
       multiplicador: 2,
@@ -36,6 +36,7 @@ const dadosBase = {
     },
   ],
 };
+let poderDeClique = 1;
 // --Carrega os Dados do jogo--
 function carregarDados(dados) {
   const nome = document.getElementById("nome");
@@ -48,17 +49,22 @@ function carregarDados(dados) {
   dados.upgrades.forEach((element) => {
     if (element.obteu == false) {
       const linha = document.createElement("li");
+      linha.setAttribute("class", `upgrade`);
+      linha.setAttribute("data-upgrade-id", `${element.id}`);
       const nome = document.createTextNode(element.nome);
       linha.appendChild(nome);
       lista.appendChild(linha);
+    } else {
+      poderDeClique *= element.multiplicador;
     }
   });
 }
 addEventListener("load", () => {
   if (localStorage.getItem("dados") == null)
-    localStorage.setItem("dados", JSON.stringify({ ...dadosBase }));
+    localStorage.setItem("dados", JSON.stringify(dadosBase));
   const dados = JSON.parse(localStorage.getItem("dados"));
   carregarDados(dados);
+  upgradeListener();
 });
 // --Carrega os Dados do jogo--
 
@@ -67,14 +73,26 @@ const pastelzao = document.querySelector(".pastelzao");
 pastelzao.addEventListener("click", () => {
   const dados = JSON.parse(localStorage.getItem("dados"));
   const contPastel = document.getElementById("contPastel");
-  dados.contPastel += 1;
+  dados.contPastel += poderDeClique;
   contPastel.innerText = dados.contPastel;
   localStorage.setItem("dados", JSON.stringify(dados));
 });
 // --Parte clicker do jogo--
 
 // --Upgrades--
-
+function upgradeListener() {
+  const upgrades = document.querySelectorAll(".upgrade");
+  upgrades.forEach((upgrade) => {
+    upgrade.addEventListener("click", (event) => {
+      const dados = JSON.parse(localStorage.getItem("dados"));
+      const id = event.currentTarget.dataset.upgradeId;
+      poderDeClique *= dados.upgrades[id].multiplicador;
+      dados.upgrades[id].obteu = true;
+      upgrade.remove();
+      localStorage.setItem("dados", JSON.stringify(dados));
+    });
+  });
+}
 // --Upgrades--
 
 // --Extras--

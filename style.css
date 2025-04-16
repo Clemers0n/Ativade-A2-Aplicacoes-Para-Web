@@ -6,18 +6,18 @@
 }
 
 .pastelzao {
-    background: red;
-    width: 100px;
-    height: 100px;
-    transition: 0.1s;
+  background: red;
+  width: 100px;
+  height: 100px;
+  transition: 0.1s;
 }
 .pastelzao:hover {
-    background: orange;
-    width: 125px;
-    height: 125px;
+  background: orange;
+  width: 125px;
+  height: 125px;
 }
-.pastelzao:active{
-    background: green;
-    width: 90px;
-    height: 90px;
+.pastelzao:active {
+  background: green;
+  width: 90px;
+  height: 90px;
 }
