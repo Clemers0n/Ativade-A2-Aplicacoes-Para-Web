@@ -165,12 +165,8 @@ function reiniciarTimeout() {
     alert("Você está inativo! Vai fritar pastel ou não?");
   }, tempoLimite);
 }
-
-// Atividades que reiniciam o timer
-["click", "mousemove", "keydown", "touchstart"].forEach((evento) => {
-  document.addEventListener(evento, reiniciarTimeout);
-});
-
-// Começa o timer assim que a página carrega
+document.addEventListener("click", reiniciarTimeout);
+document.addEventListener("mousemove", reiniciarTimeout);
+document.addEventListener("keydown", reiniciarTimeout);
 reiniciarTimeout();
 // --Extras--
