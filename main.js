@@ -14,7 +14,8 @@ const dadosBase = {
     {
       id: 1,
       nome: "Fritadeira Maior",
-      descricao: "Agora você consegue fazer ainda mais pasteis em menos tempo. Multiplica o poder do seu click em 2x",
+      descricao:
+        "Agora você consegue fazer ainda mais pasteis em menos tempo. Multiplica o poder do seu click em 2x",
       multiplicador: 2,
       custo: 200,
       obteu: false,
@@ -22,7 +23,8 @@ const dadosBase = {
     {
       id: 2,
       nome: "Cliques Divinos",
-      descricao: "Deus dos Pastéis te abençoou com cliques sagrados. Multiplica o poder do seu click em 4x",
+      descricao:
+        "Deus dos Pastéis te abençoou com cliques sagrados. Multiplica o poder do seu click em 4x",
       multiplicador: 4,
       custo: 500,
       obteu: false,
@@ -30,7 +32,8 @@ const dadosBase = {
     {
       id: 3,
       nome: "Ascensão Pastelística",
-      descricao: "Você não é mais apenas um cozinheiro... você é o pastel. Seu corpo, mente e alma se fundiram à massa crocante e ao recheio perfeito. Cada clique agora carrega o poder absoluto. Aumento de multiplicador colossal.",
+      descricao:
+        "Você não é mais apenas um cozinheiro... você é o pastel. Seu corpo, mente e alma se fundiram à massa crocante e ao recheio perfeito. Cada clique agora carrega o poder absoluto. Aumento de multiplicador colossal.",
       multiplicador: 1000,
       custo: 10000,
       obteu: false,
@@ -83,13 +86,15 @@ pastelzao.addEventListener("click", () => {
 
   // Atualiza o upgrade disponivel
   dados.upgrades.forEach((upgrade) => {
-    const divUpgrade = document.querySelector(`[data-upgrade-id="${upgrade.id}"]`)
-    if(dados.contPastel >= upgrade.custo) {
-      divUpgrade.removeAttribute("disabled")
-    }else {
-      divUpgrade.setAttribute("disabled","")
+    const divUpgrade = document.querySelector(
+      `[data-upgrade-id="${upgrade.id}"]`
+    );
+    if (dados.contPastel >= upgrade.custo) {
+      divUpgrade.removeAttribute("disabled");
+    } else {
+      divUpgrade.setAttribute("disabled", "");
     }
-  })
+  });
 });
 // --Parte clicker do jogo--
 
@@ -100,10 +105,15 @@ function upgradeListener() {
     upgrade.addEventListener("click", (event) => {
       const dados = JSON.parse(localStorage.getItem("dados"));
       const id = event.currentTarget.dataset.upgradeId;
-      poderDeClique *= dados.upgrades[id].multiplicador;
-      dados.upgrades[id].obteu = true;
-      upgrade.remove();
-      localStorage.setItem("dados", JSON.stringify(dados));
+      const contador = document.getElementById("contPastel")
+      if (dados.contPastel >= dados.upgrades[id].custo) {
+        dados.contPastel -= dados.upgrades[id].custo;
+        contador.innerText = dados.contPastel
+        dados.upgrades[id].obteu = true;
+        poderDeClique *= dados.upgrades[id].multiplicador;
+        upgrade.remove();
+        localStorage.setItem("dados", JSON.stringify(dados));
+      }
     });
 
     upgrade.addEventListener("mouseover", (event) => {
