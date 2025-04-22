@@ -4,10 +4,11 @@ const dadosBase = {
   upgrades: [
     {
       id: 0,
-      nome: "Upgrade 1",
-      descricao: "Upgrade 1",
+      nome: "Cozinheiros",
+      descricao:
+        "Contrate cozinheiros para facilitar sua produção de pasteis.Multiplica a poder do seu click em duas vezes",
       multiplicador: 2,
-      custo: 1,
+      custo: 10,
       obteu: false,
     },
     {
@@ -15,7 +16,7 @@ const dadosBase = {
       nome: "Upgrade 2",
       descricao: "Upgrade 2",
       multiplicador: 2,
-      custo: 1,
+      custo: 200,
       obteu: false,
     },
     {
@@ -23,7 +24,7 @@ const dadosBase = {
       nome: "Upgrade 3",
       descricao: "Upgrade 3",
       multiplicador: 2,
-      custo: 1,
+      custo: 500,
       obteu: false,
     },
     {
@@ -31,7 +32,7 @@ const dadosBase = {
       nome: "Upgrade 4",
       descricao: "Upgrade 4",
       multiplicador: 2,
-      custo: 1,
+      custo: 1000,
       obteu: false,
     },
   ],
@@ -52,7 +53,10 @@ function carregarDados(dados) {
       linha.setAttribute("class", `upgrade`);
       linha.setAttribute("data-upgrade-id", `${element.id}`);
       const nome = document.createTextNode(element.nome);
+      const custo = document.createElement("span");
+      custo.innerText = element.custo + " Pasteis";
       linha.appendChild(nome);
+      linha.appendChild(custo);
       lista.appendChild(linha);
     } else {
       poderDeClique *= element.multiplicador;
@@ -76,6 +80,16 @@ pastelzao.addEventListener("click", () => {
   dados.contPastel += poderDeClique;
   contPastel.innerText = dados.contPastel;
   localStorage.setItem("dados", JSON.stringify(dados));
+
+  // Atualiza o upgrade disponivel
+  dados.upgrades.forEach((upgrade) => {
+    const divUpgrade = document.querySelector(`[data-upgrade-id="${upgrade.id}"]`)
+    if(dados.contPastel >= upgrade.custo) {
+      divUpgrade.removeAttribute("disabled")
+    }else {
+      divUpgrade.setAttribute("disabled","")
+    }
+  })
 });
 // --Parte clicker do jogo--
 
@@ -90,6 +104,26 @@ function upgradeListener() {
       dados.upgrades[id].obteu = true;
       upgrade.remove();
       localStorage.setItem("dados", JSON.stringify(dados));
+    });
+
+    upgrade.addEventListener("mouseover", (event) => {
+      const dados = JSON.parse(localStorage.getItem("dados"));
+      const id = event.currentTarget.dataset.upgradeId;
+      const div = document.createElement("div");
+      div.setAttribute("class", "descricao");
+
+      const titulo = document.createElement("h3");
+      const corpo = document.createElement("p");
+      titulo.innerHTML = dados.upgrades[id].nome;
+      corpo.innerHTML = dados.upgrades[id].descricao;
+      div.appendChild(titulo);
+      div.appendChild(corpo);
+
+      event.currentTarget.appendChild(div);
+    });
+    upgrade.addEventListener("mouseout", () => {
+      const div = document.querySelector(".descricao");
+      div.remove();
     });
   });
 }

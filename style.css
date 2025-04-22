@@ -10,6 +10,7 @@
   width: 100px;
   height: 100px;
   transition: 0.1s;
+  cursor: pointer;
 }
 .pastelzao:hover {
   background: orange;
@@ -20,4 +21,20 @@
   background: green;
   width: 90px;
   height: 90px;
+}
+
+.upgrade {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 60px;
+  position: relative;
+  cursor: pointer;
+}
+.upgrade .descricao {
+  width: 200px;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  right: 105%;
+  background-color: red;
 }
