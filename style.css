@@ -1,3 +1,9 @@
+#nome {
+  cursor: pointer;
+}
+#nome:hover{
+  color: aqua;
+}
 .parent {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

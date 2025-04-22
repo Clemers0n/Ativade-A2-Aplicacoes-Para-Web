@@ -6,33 +6,33 @@ const dadosBase = {
       id: 0,
       nome: "Cozinheiros",
       descricao:
-        "Contrate cozinheiros para facilitar sua produção de pasteis.Multiplica a poder do seu click em duas vezes",
-      multiplicador: 2,
+        "Contrate cozinheiros para facilitar sua produção de pasteis. Multiplica a poder do seu click em 1.5x",
+      multiplicador: 1.5,
       custo: 10,
       obteu: false,
     },
     {
       id: 1,
-      nome: "Upgrade 2",
-      descricao: "Upgrade 2",
+      nome: "Fritadeira Maior",
+      descricao: "Agora você consegue fazer ainda mais pasteis em menos tempo. Multiplica o poder do seu click em 2x",
       multiplicador: 2,
       custo: 200,
       obteu: false,
     },
     {
       id: 2,
-      nome: "Upgrade 3",
-      descricao: "Upgrade 3",
-      multiplicador: 2,
+      nome: "Cliques Divinos",
+      descricao: "Deus dos Pastéis te abençoou com cliques sagrados. Multiplica o poder do seu click em 4x",
+      multiplicador: 4,
       custo: 500,
       obteu: false,
     },
     {
       id: 3,
-      nome: "Upgrade 4",
-      descricao: "Upgrade 4",
-      multiplicador: 2,
-      custo: 1000,
+      nome: "Ascensão Pastelística",
+      descricao: "Você não é mais apenas um cozinheiro... você é o pastel. Seu corpo, mente e alma se fundiram à massa crocante e ao recheio perfeito. Cada clique agora carrega o poder absoluto. Aumento de multiplicador colossal.",
+      multiplicador: 1000,
+      custo: 10000,
       obteu: false,
     },
   ],
@@ -118,7 +118,6 @@ function upgradeListener() {
       corpo.innerHTML = dados.upgrades[id].descricao;
       div.appendChild(titulo);
       div.appendChild(corpo);
-
       event.currentTarget.appendChild(div);
     });
     upgrade.addEventListener("mouseout", () => {
