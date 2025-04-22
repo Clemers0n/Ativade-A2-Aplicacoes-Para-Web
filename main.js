@@ -128,7 +128,7 @@ function upgradeListener() {
       corpo.innerHTML = dados.upgrades[id].descricao;
       div.appendChild(titulo);
       div.appendChild(corpo);
-      event.currentTarget.appendChild(div);
+      event.currentTarget.insertBefore(div, event.currentTarget.firstChild);
     });
     upgrade.addEventListener("mouseout", () => {
       const div = document.querySelector(".descricao");
