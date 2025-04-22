@@ -105,10 +105,10 @@ function upgradeListener() {
     upgrade.addEventListener("click", (event) => {
       const dados = JSON.parse(localStorage.getItem("dados"));
       const id = event.currentTarget.dataset.upgradeId;
-      const contador = document.getElementById("contPastel")
+      const contador = document.getElementById("contPastel");
       if (dados.contPastel >= dados.upgrades[id].custo) {
         dados.contPastel -= dados.upgrades[id].custo;
-        contador.innerText = dados.contPastel
+        contador.innerText = dados.contPastel;
         dados.upgrades[id].obteu = true;
         poderDeClique *= dados.upgrades[id].multiplicador;
         upgrade.remove();
@@ -155,4 +155,22 @@ function mudarNome(antigoNome) {
     localStorage.setItem("dados", JSON.stringify(dados));
   }
 }
+
+
+let timeout;
+const tempoLimite = 10000;
+function reiniciarTimeout() {
+  clearTimeout(timeout);
+  timeout = setTimeout(() => {
+    alert("Você está inativo! Vai fritar pastel ou não?");
+  }, tempoLimite);
+}
+
+// Atividades que reiniciam o timer
+["click", "mousemove", "keydown", "touchstart"].forEach((evento) => {
+  document.addEventListener(evento, reiniciarTimeout);
+});
+
+// Começa o timer assim que a página carrega
+reiniciarTimeout();
 // --Extras--
