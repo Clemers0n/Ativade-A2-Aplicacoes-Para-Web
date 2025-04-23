@@ -47,7 +47,6 @@ const dadosBase = {
       custo: 10000,
       obteu: false,
     },
-    
   ],
 };
 let poderDeClique = 1;
@@ -57,7 +56,7 @@ function carregarDados(dados) {
   const contPastel = document.getElementById("contPastel");
   nome.innerText = dados.nomeDaPastelaria;
   nome.setAttribute("onClick", `mudarNome("${dados.nomeDaPastelaria}")`);
-  contPastel.innerText = dados.contPastel;
+  contPastel.innerText = formartarNumero(dados.contPastel);
   document.title = "Pastelaria " + dados.nomeDaPastelaria;
   const lista = document.getElementById("upgrades");
   dados.upgrades.forEach((element) => {
@@ -67,7 +66,7 @@ function carregarDados(dados) {
       linha.setAttribute("data-upgrade-id", `${element.id}`);
       const nome = document.createTextNode(element.nome);
       const custo = document.createElement("span");
-      custo.innerText = element.custo + " Pasteis";
+      custo.innerText = formartarNumero(element.custo) + " Pasteis";
       linha.appendChild(nome);
       linha.appendChild(custo);
       lista.appendChild(linha);
@@ -91,20 +90,8 @@ pastelzao.addEventListener("click", () => {
   const dados = JSON.parse(localStorage.getItem("dados"));
   const contPastel = document.getElementById("contPastel");
   dados.contPastel += poderDeClique;
-  contPastel.innerText = dados.contPastel;
+  contPastel.innerText = formartarNumero(dados.contPastel);
   localStorage.setItem("dados", JSON.stringify(dados));
-
-  // Atualiza o upgrade disponivel
-  dados.upgrades.forEach((upgrade) => {
-    const divUpgrade = document.querySelector(
-      `[data-upgrade-id="${upgrade.id}"]`
-    );
-    if (dados.contPastel >= upgrade.custo) {
-      divUpgrade.removeAttribute("disabled");
-    } else {
-      divUpgrade.setAttribute("disabled", "");
-    }
-  });
 });
 // --Parte clicker do jogo--
 
@@ -166,6 +153,9 @@ function mudarNome(antigoNome) {
   }
 }
 
+function formartarNumero(numero) {
+  return numero.toLocaleString("pt-BR");
+}
 
 let timeout;
 const tempoLimite = 60000;

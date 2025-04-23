@@ -1,6 +1,6 @@
-*{
+* {
   font-family: Arial, Helvetica, sans-serif;
-
+  user-select: none;
   font-size: 30px;
   color: white;
 }
@@ -14,14 +14,14 @@ body {
 #nome {
   cursor: pointer;
 }
-#nome:hover{
+#nome:hover {
   color: aqua;
+  text-decoration: underline;
 }
-.parent {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(1, 1fr);
-  gap: 8px;
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .pastelzao {
@@ -41,9 +41,7 @@ body {
 
 .upgrade {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  width: 330px;
   height: 60px;
   padding: 18px 20px;
   border: 4px solid white;
@@ -59,7 +57,7 @@ body {
   top: -5px;
   right: 105%;
   background-color: #3c3c3c;
-  border: 5px solid #1c1c1c
+  border: 5px solid #1c1c1c;
 }
 
 .container-upgrade {
@@ -69,5 +67,5 @@ body {
 }
 
 .upgrade .descricao h3 {
-  color: wheat
+  color: wheat;
 }
