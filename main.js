@@ -31,6 +31,15 @@ const dadosBase = {
     },
     {
       id: 3,
+      nome: "cal D. cana",
+      descricao:
+        "Como não servir um pastel com seu leal companheiro, o caldo de cana. Multiplica o poder de click em 2x",
+      multiplicador: 2,
+      custo: 1000,
+      obteu: false,
+    },
+    {
+      id: 4,
       nome: "Ascensão Pastelística",
       descricao:
         "Você não é mais apenas um cozinheiro... você é o pastel. Seu corpo, mente e alma se fundiram à massa crocante e ao recheio perfeito. Cada clique agora carrega o poder absoluto. Aumento de multiplicador colossal.",
@@ -38,6 +47,7 @@ const dadosBase = {
       custo: 10000,
       obteu: false,
     },
+    
   ],
 };
 let poderDeClique = 1;
@@ -158,7 +168,7 @@ function mudarNome(antigoNome) {
 
 
 let timeout;
-const tempoLimite = 10000;
+const tempoLimite = 60000;
 function reiniciarTimeout() {
   clearTimeout(timeout);
   timeout = setTimeout(() => {
